@@ -1,0 +1,50 @@
+{
+    "name": "jk-tech/tencent-im",
+    "description": "Tencent-IM support in Laravel.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Eddie Lau",
+            "email": "277676978@qq.com"
+        }
+    ],
+    "config": {
+        "github-oauth": {
+            "github.com": "f2574d485988b5bf496e4fc3fe6a71ec174fbed1"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "JkTech\\TencentIm\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "JkTech\\TencentIm\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "JkTech\\TencentIm\\Provider\\ImServiceProvider"
+            ],
+            "aliases": {
+                "TencentIm": "JkTech\\TencentIm\\Facade\\Im"
+            }
+        }
+    },
+    "require-dev": {
+        "laravel/laravel": "5.*",
+        "phpunit/phpunit": "^7.3@dev"
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
+    }
+}
