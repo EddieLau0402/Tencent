@@ -35,7 +35,7 @@ Could not find a version of package eddie/tencent matching your minimum-stabilit
 "repositories": {
     "tencent-im": {
         "type": "vcs",
-        "url": "https://github.com/EddieLau0402/Tencent.git"
+        "url": "https://github.com/techjkweixin/TencentIm.git"
     }
 },
 ```
