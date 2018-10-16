@@ -119,7 +119,7 @@ class Account extends AbstractService
 
         try {
             $result = Util::postRequest($url, json_encode($data));
-            //return json_decode($result, true);
+            $result = json_decode($result, true);
 
             if (isset($result['ActionStatus']) && $result['ActionStatus'] == 'OK') {
                 $users = [];
@@ -146,11 +146,10 @@ class Account extends AbstractService
     protected function parseUserProfile($userProfile = null)
     {
         if (empty($userProfile)) return [];
-        if (isset($userProfile['ProfileItem'])) return [];
 
         $user = ['identifier' => $userProfile['To_Account']];
 
-        foreach ($userProfile['ProfileItem'] as $row) {
+        foreach ($userProfile['ProfileItem'] ?? [] as $row) {
             $attr = $this->accountFieldsMap[$row['Tag']] ?? '';
 
             if (empty($attr)) continue; // no attribute, then next one
