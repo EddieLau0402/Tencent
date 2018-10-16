@@ -37,9 +37,37 @@ class Bag
 
     public function format()
     {
+        $content = [];
+        switch (get_class($this->entity)) {
+            case Text::class:
+                $content = ['Text' => $this->entity->text];
+                break;
+            case Custom::class:
+                $content = [
+                    'Data' => $this->entity->data,
+                    'Desc' => $this->entity->desc,
+                    'Ext' => $this->entity->ext,
+                    //'Sound' => ''
+                ];
+                break;
+            case Location::class:
+                $content = [
+                    'Desc'      => $this->entity->desc,
+                    'Latitude'  => $this->entity->latitude,
+                    'Longitude' => $this->entity->Longitude
+                ];
+                break;
+            case Face::class:
+                $content = [
+                    'Index' => $this->entity->index,
+                    'Data'  => $this->entity->data
+                ];
+                break;
+        }
+
         return [
             'MsgType' => $this->msgType,
-            'MsgContent' => []
+            'MsgContent' => $content
         ];
     }
 

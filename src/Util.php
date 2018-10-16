@@ -58,23 +58,15 @@ class Util
          */
         $ch = curl_init();
         if (strtoupper($method) == 'GET') { // >>>>> GET request.
-            curl_setopt($ch, CURLOPT_HEADER, 0);
             if ($params) { // has parameters.
                 $url .= (strpos($url, '?') ? '&' : '?') . http_build_query($params);
             }
         }
         else { // >>>>> POST request.
-            if (is_array($params)) {
-                $params = http_build_query($params);
-            } else {
-                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                    'Content-Type: application/json',
-                    'Content-Length: ' . strlen($params)
-                ));
-            }
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
         }
+        curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         if ($headers) {

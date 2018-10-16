@@ -67,15 +67,27 @@ class Message extends AbstractService
         }
 
         // build post-data
-        $data = array_merge($opt, [
+        $data = array_filter(array_merge($opt, [
             'To_Account' => $identifier,
             'MsgRandom'  => Util::makeMsgRandom(),
             'MsgTimeStamp' => Util::getTimestamp(),
-            'MsgBody' => $this->msgBody
-        ], ['OfflinePushInfo' => $this->offlinePushInfo]);
+            'MsgBody' => array_map(function ($msg) {
+                return $msg->format();
+            }, $this->msgBody)
+        ], ['OfflinePushInfo' => $this->offlinePushInfo]));
+        $data = json_encode($data);
+
+        $url = $this->getUrl('sendmsg')  . '?' . http_build_query([
+                'usersig' => (new Signature())->generate(config('im.identifier')), // 主账号签名
+                'identifier' => config('im.identifier'),
+                'sdkappid' => config('im.appid'),
+                'random' => Util::makeMsgRandom(),
+                'contenttype' => 'json'
+            ]);
+        //dd(['url' => $url, 'data' => $data]);
 
         try {
-            $result = Util::postRequest($this->getUrl('sendmsg'), $data);
+            $result = Util::postRequest($url, $data);
             return json_decode($result, true);
         } catch (\Exception $e) {
             return self::makeFailResponse($e->getMessage());
