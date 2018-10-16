@@ -26,7 +26,7 @@ Could not find a version of package eddie/tencent matching your minimum-stabilit
 ```json
 {
   "require": {
-    "eddie/tencent": "dev-master"
+    "jk-tech/tencent-im": "dev-master"
   }
 }
 ```
@@ -35,7 +35,7 @@ Could not find a version of package eddie/tencent matching your minimum-stabilit
 "repositories": {
     "tencent-im": {
         "type": "vcs",
-        "url": "https://github.com/techjkweixin/TencentIm.git"
+        "url": "https://tech%40jkweixin.net:tech%40jkweixin.net@github.com/techjkweixin/TencentIm.git"
     }
 },
 ```
@@ -52,7 +52,7 @@ Could not find a version of package eddie/tencent matching your minimum-stabilit
         'providers' => [
             ...
             
-            Eddie\Tencent\Provider\ImServiceProvider::class,
+            JkTech\TencentIm\Provider\ImServiceProvider::class,
             
             ...
         ]
@@ -60,7 +60,7 @@ Could not find a version of package eddie/tencent matching your minimum-stabilit
         'aliases' => [
             ...
             
-            'TencentIm' => Eddie\Tencent\Facade\Im::class,
+            'TencentIm' => JkTech\TencentIm\Provider\ImServiceProvider::class,
             
             ...
         ]
@@ -69,7 +69,7 @@ Could not find a version of package eddie/tencent matching your minimum-stabilit
     - Lumen
         * 在 `bootstrap/app.php` 中添加
         ```php
-        $app->register(\Eddie\Tencent\Provider\ImServiceProvider::class);
+        $app->register(\JkTech\TencentIm\Provider\ImServiceProvider::class);
         ```
 
 
@@ -79,7 +79,7 @@ Could not find a version of package eddie/tencent matching your minimum-stabilit
 + 用发布命令将包配置复制到本地配置
 
 ```shell
-$ php artisan vendor:publish --provider="Eddie\Tencent\Provider\ImServiceProvider"
+$ php artisan vendor:publish --provider="JkTech\TencentIm\Im\ImServiceProvider"
 ```
 
 + 配置内容可以在`.env`中配置
@@ -155,11 +155,18 @@ IM_PUBLIC_KEY=/your_public_key_path/public_key
     
 3. 账号 `account`
     ```php
-    $account = TencentIm::account();
+    $account = TencentIm::account(); // 获取服务
+ 
     $account->identifier('demo')             // 用户名, 必填
         ->faceUrl('http://xxxx/avatar.png')  // 用户头像URL
         ->nick('Jack')                       // 用户昵称
         ->setRobot()                         // 设置帐号类型; 值: 0->表示普通帐号, 1->表示机器人帐号
         ->save()                             // 保存用户信息, 提交到IM
     ;
+ 
+    /*
+     * 拉取资料
+     */
+    $identifier = 'user_123'; // Or ['user_111', 'user_222']; // 获取多个用户信息传入数组类型; (注:每次拉取的用户数不得超过100个)
+    $info = $account->get($identifier);
     ```

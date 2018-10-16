@@ -6,13 +6,28 @@ use JkTech\TencentIm\Util;
 
 class Account extends AbstractService
 {
-    protected $service = 'im_open_login_svc';
+    //protected $service = 'im_open_login_svc';
 
     private $attrs = [
         'identifier' => '', // 用户名，长度不超过 32 字节
         'nick'       => '', // 用户昵称
         'faceUrl'    => '', // 用户头像URL
         'type'       => 0   // 帐号类型，开发者默认无需填写，值0表示普通帐号，1表示机器人帐号
+    ];
+
+    private $accountFields = [
+        'Tag_Profile_IM_Nick',            // 昵称
+        'Tag_Profile_IM_Gender',          // 性别
+        'Tag_Profile_IM_BirthDay',        // 生日
+        'Tag_Profile_IM_Location',        // 所在地
+        'Tag_Profile_IM_SelfSignature',   // 个性签名
+        'Tag_Profile_IM_AllowType',       // 加好友验证方式
+        'Tag_Profile_IM_Language',        // 语言
+        'Tag_Profile_IM_Image',           // 头像URL
+        'Tag_Profile_IM_MsgSettings',     // 消息设置
+        'Tag_Profile_IM_AdminForbidType', // 管理员禁止加好友标识
+        'Tag_Profile_IM_Level',           // 等级
+        'Tag_Profile_IM_Role',            // 角色
     ];
 
     function __construct()
@@ -27,6 +42,8 @@ class Account extends AbstractService
      */
     public function save()
     {
+        $this->service = 'im_open_login_svc';
+
         $data = [
             'Identifier' => $this->attrs['identifier'],
             'Nick'       => $this->attrs['nick'],
@@ -37,7 +54,7 @@ class Account extends AbstractService
 
         $url = $this->getUrl('account_import') . '?' . http_build_query([
                 'usersig' => (new Signature())->generate(config('im.identifier')), // 主账号签名
-                'identifier' => config('im.identifier'),
+                'identifier' => config('im.identifier'), // 主账号
                 'sdkappid' => config('im.appid'),
                 'random' => Util::makeMsgRandom(),
                 'contenttype' => 'json'
@@ -68,6 +85,42 @@ class Account extends AbstractService
         $res = $this->postRequest($this->getUrl('multiaccount_import'), $data);
     }
 
+    /**
+     * 拉取资料
+     *
+     * @author Eddie
+     *
+     * @param $identifier
+     * @return mixed
+     * @throws \Exception
+     */
+    public function get($identifier)
+    {
+        // https://console.tim.qq.com/v4/profile/portrait_get?usersig=xxx&identifier=admin&sdkappid=88888888&random=99999999&contenttype=json
+        $this->service = 'profile';
+
+        $data = [
+            'To_Account' => is_array($identifier) ? $identifier : [$identifier],
+            'TagList' => $this->accountFields
+        ];
+
+        $url = $this->getUrl('portrait_get') . '?' . http_build_query([
+                'usersig' => (new Signature())->generate(config('im.identifier')), // 主账号签名
+                'identifier' => config('im.identifier'),
+                'sdkappid' => config('im.appid'),
+                'random' => Util::makeMsgRandom(),
+                'contenttype' => 'json'
+            ]);
+
+        //dd(['url' => $url, 'data' => $data]);
+
+        try {
+            $result = Util::postRequest($url, json_encode($data));
+            return json_decode($result, true);
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+    }
 
     public function __call($name, array $args)
     {
