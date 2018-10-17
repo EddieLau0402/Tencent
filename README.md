@@ -151,6 +151,27 @@ IM_PUBLIC_KEY=/your_public_key_path/public_key
     $message->handleCallbackAfterSend(function ($message) { // 处理发送消息之后回调
         // ...
     })
+ 
+    /*
+     * 发送消息
+     */
+    // 单发单聊消息
+    TencentIm::message()
+    ->append(new \JkTech\TencentIm\Message\Bag([
+         'MsgType' => 'TIMTextElem',
+         'MsgContent' => [
+             'Text' => 'hello, world'
+         ]
+     ]))
+    ->send('to_account', ['From_Account' => 'from_account']);
+     TencentIm::message()
+     ->append(new \JkTech\TencentIm\Message\Bag([
+          'MsgType' => 'TIMTextElem',
+          'MsgContent' => [
+              'Text' => 'hello, world'
+          ]
+      ]))
+     ->batchSend(['to_account1', 'to_account2'], ['From_Account' => 'from_account']);
     ```
     
 3. 账号 `account`
