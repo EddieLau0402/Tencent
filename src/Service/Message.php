@@ -96,6 +96,55 @@ class Message extends AbstractService
     }
 
     /**
+     * 批量发送消息
+     *
+     * @author Eddie
+     *
+     * @param array $identifiers
+     * @param array $opt
+     * @return array|mixed
+     * @throws \Exception
+     */
+    public function batchSend(array $identifiers, array $opt = [])
+    {
+        $allowOptKeys = [
+            'SyncOtherMachine',
+            'From_Account',
+            'MsgLifeTime'
+        ];
+        foreach ($opt as $k => $v) {
+            if (!in_array($k, $allowOptKeys)) unset($opt[$k]);
+            if (empty($v)) unset($opt[$k]);
+        }
+
+        // build post-data
+        $data = array_filter(array_merge($opt, [
+            'To_Account' => $identifiers,
+            'MsgRandom'  => Util::makeMsgRandom(),
+            'MsgBody' => array_map(function ($msg) {
+                return $msg->format();
+            }, $this->msgBody)
+        ], ['OfflinePushInfo' => $this->offlinePushInfo]));
+        $data = json_encode($data);
+
+        $url = $this->getUrl('batchsendmsg')  . '?' . http_build_query([
+                'usersig' => (new Signature())->generate(config('im.identifier')), // 主账号签名
+                'identifier' => config('im.identifier'),
+                'sdkappid' => config('im.appid'),
+                'random' => Util::makeMsgRandom(),
+                'contenttype' => 'json'
+            ]);
+        //dd(['url' => $url, 'data' => $data]);
+
+        try {
+            $result = Util::postRequest($url, $data);
+            return json_decode($result, true);
+        } catch (\Exception $e) {
+            return self::makeFailResponse($e->getMessage());
+        }
+    }
+
+    /**
      * 接收解析
      *
      * @author Eddie
