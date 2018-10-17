@@ -169,7 +169,7 @@ IM_PUBLIC_KEY=/your_public_key_path/public_key
     ->append(new \JkTech\TencentIm\Message\Bag([
          'MsgType' => 'TIMTextElem',
          'MsgContent' => [
-               'Text' => 'hello, world'
+             'Text' => 'hello, world'
          ]
      ]))
      ->batchSend(['to_account1', 'to_account2'], ['From_Account' => 'from_account']);
