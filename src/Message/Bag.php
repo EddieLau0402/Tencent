@@ -2,6 +2,7 @@
 
 namespace JkTech\TencentIm\Message;
 
+use JkTech\TencentIm\Message\Entities\Base;
 use JkTech\TencentIm\Message\Entities\Custom;
 use JkTech\TencentIm\Message\Entities\Face;
 use JkTech\TencentIm\Message\Entities\Location;
@@ -24,50 +25,29 @@ class Bag
     ];
 
 
-    public function __construct(array $data)
+    public function __construct($data)
     {
-        $this->msgType = $data['MsgType'];
+        if (is_array($data)) {
+            $this->msgType = $data['MsgType'];
 
-        if (isset($data['MsgContent']) && !empty($data['MsgContent'])) {
-            if (isset($this->mapping[$this->msgType])) {
-                $this->entity = (new \ReflectionClass($this->mapping[$this->msgType]))->newInstanceArgs([$data['MsgContent']]);
+            if (isset($data['MsgContent']) && !empty($data['MsgContent'])) {
+                if (isset($this->mapping[$this->msgType])) {
+                    $this->entity = (new \ReflectionClass($this->mapping[$this->msgType]))->newInstanceArgs([$data['MsgContent']]);
+                }
             }
+        } else if (is_object($data) && $data instanceof Base) {
+            $this->entity = $data;
+            $this->msgType =  array_flip($this->mapping)[get_class($this->entity)];
+        } else {
+            throw new \Exception('Invaildate message entity.');
         }
     }
 
     public function format()
     {
-        $content = [];
-        switch (get_class($this->entity)) {
-            case Text::class:
-                $content = ['Text' => $this->entity->text];
-                break;
-            case Custom::class:
-                $content = [
-                    'Data' => $this->entity->data,
-                    'Desc' => $this->entity->desc,
-                    'Ext' => $this->entity->ext,
-                    //'Sound' => ''
-                ];
-                break;
-            case Location::class:
-                $content = [
-                    'Desc'      => $this->entity->desc,
-                    'Latitude'  => $this->entity->latitude,
-                    'Longitude' => $this->entity->Longitude
-                ];
-                break;
-            case Face::class:
-                $content = [
-                    'Index' => $this->entity->index,
-                    'Data'  => $this->entity->data
-                ];
-                break;
-        }
-
         return [
             'MsgType' => $this->msgType,
-            'MsgContent' => $content
+            'MsgContent' => $this->entity->transfor()
         ];
     }
 

@@ -34,4 +34,28 @@ abstract class Base
     {
         if (isset($this->attrs[$name])) $this->attrs[$name] = $value;
     }
+
+    /**
+     * Transfor
+     *
+     * @author Eddie
+     *
+     * @return array
+     */
+    public function transfor()
+    {
+        $res = [];
+
+        $fields = array_merge(array_keys($this->attrs), $this->fillable);
+        foreach ($fields ?? [] as $field) {
+            if (! isset($this->attrs[$field]) ) continue;
+
+            $val = $this->attrs[$field];
+            if ( $val == '' || $val == null ) continue;
+
+            $res[ucfirst($field)] = $val;
+        }
+
+        return $res;
+    }
 }
