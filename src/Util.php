@@ -41,7 +41,7 @@ class Util
     }
 
     /**
-     * 发送curl请求
+     * 发送请求
      *
      * @author Eddie
      *
@@ -53,40 +53,23 @@ class Util
      */
     public static function request($url, $params = [], $method = 'GET', $headers = [])
     {
-        /*
-         * Open connection, and set options.
-         */
-        $ch = curl_init();
+        $client = new \GuzzleHttp\Client();
+
+        $option = [];
+        if ($headers) $option['headers'] = $headers;
+
         if (strtoupper($method) == 'GET') { // >>>>> GET request.
             if ($params) { // has parameters.
-                $url .= (strpos($url, '?') ? '&' : '?') . http_build_query($params);
+                if (is_array($params)) $params = http_build_query($params);
+                $url .= (strpos($url, '?') ? '&' : '?') . $params;
+                $response = $client->get($url, $option);
             }
-        }
-        else { // >>>>> POST request.
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
-        }
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        if ($headers) {
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        } else {
+            $option['body'] = $params;
+            $response = $client->post($url, $option);
         }
 
-        /*
-         * Execute.
-         */
-        $result = curl_exec($ch);
-
-        /*
-         * Close connection.
-         */
-        curl_close($ch);
-
-        /*
-         * Return.
-         */
-        return $result;
+        return $response->getBody()->getContents();
     }
 
 
