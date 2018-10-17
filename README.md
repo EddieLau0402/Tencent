@@ -12,7 +12,7 @@
 + 命令行执行
 
 ```shell
-$ composer require eddie/tencent
+$ composer require jk-tech/tencent-im
 ```
 
 若安装出现
