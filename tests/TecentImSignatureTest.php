@@ -1,7 +1,7 @@
 <?php
 namespace JkTech\TencentIm\Tests;
 
-use JkTech\TencentIm\Im ;
+use JkTech\TencentIm\Im;
 
 class TecentImSignatureTest extends TestCase
 {
@@ -13,7 +13,13 @@ class TecentImSignatureTest extends TestCase
     {
         parent::setUp();
 
-        $this->app['config']->set('im.appid', '1400001052');
+        /*
+         * IM_SDK_APPID=1400131907
+         * IM_SDK_ACOUNT=admin
+         * IM_SDK_ACOUNTTYPE=36362
+         */
+
+        $this->app['config']->set('im.appid', '1400131907');
         $this->app['config']->set('im.private_key', __DIR__ . '/test_private_key');
         $this->app['config']->set('im.public_key', __DIR__ . '/test_public_key');
 
@@ -22,11 +28,13 @@ class TecentImSignatureTest extends TestCase
 
     public function testSignatureGenerate()
     {
-        $identifier = 'demo_user';
+        $identifier = 'admin';
 
         $sig = $this->signature->generate($identifier);
 
         $verify = $this->signature->verify($sig, $identifier);
+
+        echo "\nsign: {$sig}\n";
 
         $this->assertTrue($verify);
     }
