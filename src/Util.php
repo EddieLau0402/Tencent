@@ -55,7 +55,9 @@ class Util
     {
         $client = new \GuzzleHttp\Client();
 
-        $option = [];
+        $option = [
+            'verify' => false
+        ];
         if ($headers) $option['headers'] = $headers;
 
         if (strtoupper($method) == 'GET') { // >>>>> GET request.
