@@ -2,7 +2,7 @@
 
 namespace Eddie\TencentIm\Provider;
 
-use JkTech\TencentIm\Im;
+use Eddie\TencentIm\Im;
 use Illuminate\Support\ServiceProvider;
 
 class ImServiceProvider extends ServiceProvider
