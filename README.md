@@ -157,7 +157,7 @@ IM_PUBLIC_KEY=/your_public_key_path/public_key
      */
     // 单发单聊消息
     TencentIm::message()
-    ->append(new \JkTech\TencentIm\Message\Bag([
+    ->append(new \Eddie\TencentIm\Message\Bag([
          'MsgType' => 'TIMTextElem',
          'MsgContent' => [
              'Text' => 'hello, world'
@@ -166,7 +166,7 @@ IM_PUBLIC_KEY=/your_public_key_path/public_key
     ->send('to_account', ['From_Account' => 'from_account']);
     // 批量发单聊消息
     TencentIm::message()
-    ->append(new \JkTech\TencentIm\Message\Bag([
+    ->append(new \Eddie\TencentIm\Message\Bag([
          'MsgType' => 'TIMTextElem',
          'MsgContent' => [
              'Text' => 'hello, world'

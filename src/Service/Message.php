@@ -2,8 +2,8 @@
 
 namespace Eddie\TencentIm\Service;
 
-use JkTech\TencentIm\Message\Bag;
-use JkTech\TencentIm\Util;
+use Eddie\TencentIm\Message\Bag;
+use Eddie\TencentIm\Util;
 
 class Message extends AbstractService
 {
