@@ -1,6 +1,6 @@
 <?php
 
-namespace JkTech\TencentIm\Facade;
+namespace Eddie\TencentIm\Facade;
 
 use Illuminate\Support\Facades\Facade;
 

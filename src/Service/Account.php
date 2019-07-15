@@ -1,8 +1,8 @@
 <?php
 
-namespace JkTech\TencentIm\Service;
+namespace Eddie\TencentIm\Service;
 
-use JkTech\TencentIm\Util;
+use Eddie\TencentIm\Util;
 
 class Account extends AbstractService
 {

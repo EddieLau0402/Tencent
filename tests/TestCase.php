@@ -1,6 +1,6 @@
 <?php
 
-namespace JkTech\TencentIm\Tests;
+namespace Eddie\TencentIm\Tests;
 
 class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {

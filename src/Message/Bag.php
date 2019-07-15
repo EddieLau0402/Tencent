@@ -1,12 +1,12 @@
 <?php
 
-namespace JkTech\TencentIm\Message;
+namespace Eddie\TencentIm\Message;
 
-use JkTech\TencentIm\Message\Entities\Base;
-use JkTech\TencentIm\Message\Entities\Custom;
-use JkTech\TencentIm\Message\Entities\Face;
-use JkTech\TencentIm\Message\Entities\Location;
-use JkTech\TencentIm\Message\Entities\Text;
+use Eddie\TencentIm\Message\Entities\Base;
+use Eddie\TencentIm\Message\Entities\Custom;
+use Eddie\TencentIm\Message\Entities\Face;
+use Eddie\TencentIm\Message\Entities\Location;
+use Eddie\TencentIm\Message\Entities\Text;
 
 class Bag
 {

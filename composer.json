@@ -1,5 +1,5 @@
 {
-    "name": "jk-tech/tencent-im",
+    "name": "eddie/tencent",
     "description": "Tencent-IM support in Laravel.",
     "license": "MIT",
     "authors": [
@@ -20,21 +20,21 @@
     },
     "autoload": {
         "psr-4": {
-            "JkTech\\TencentIm\\": "src/"
+            "Eddie\\TencentIm\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "JkTech\\TencentIm\\Tests\\": "tests/"
+            "Eddie\\TencentIm\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "JkTech\\TencentIm\\Provider\\ImServiceProvider"
+                "Eddie\\TencentIm\\Provider\\ImServiceProvider"
             ],
             "aliases": {
-                "TencentIm": "JkTech\\TencentIm\\Facade\\Im"
+                "TencentIm": "Eddie\\TencentIm\\Facade\\Im"
             }
         }
     },
@@ -45,7 +45,7 @@
     "repositories": {
         "packagist": {
             "type": "composer",
-            "url": "https://packagist.phpcomposer.com"
+            "url": "https://mirrors.aliyun.com/composer/"
         }
     }
 }

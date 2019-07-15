@@ -6,7 +6,7 @@
  * Time: 下午5:17
  */
 
-namespace JkTech\TencentIm;
+namespace Eddie\TencentIm;
 
 class Util
 {

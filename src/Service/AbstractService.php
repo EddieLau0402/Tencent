@@ -1,7 +1,5 @@
 <?php
-namespace JkTech\TencentIm\Service;
-
-use JkTech\TencentIm\Util;
+namespace Eddie\TencentIm\Service;
 
 abstract class AbstractService
 {

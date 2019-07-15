@@ -1,6 +1,6 @@
 <?php
 
-namespace JkTech\TencentIm\Service;
+namespace Eddie\TencentIm\Service;
 
 if (version_compare(PHP_VERSION, '5.6.0') < 0 &&
     version_compare(PHP_VERSION, '5.5.10') < 0 &&

@@ -1,6 +1,6 @@
 <?php
 
-namespace JkTech\TencentIm;
+namespace Eddie\TencentIm;
 
 class Im
 {

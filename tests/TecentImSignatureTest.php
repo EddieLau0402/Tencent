@@ -1,7 +1,7 @@
 <?php
-namespace JkTech\TencentIm\Tests;
+namespace Eddie\TencentIm\Tests;
 
-use JkTech\TencentIm\Im;
+use Eddie\TencentIm\Im;
 
 class TecentImSignatureTest extends TestCase
 {

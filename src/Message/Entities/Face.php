@@ -1,6 +1,6 @@
 <?php
 
-namespace JkTech\TencentIm\Message\Entities;
+namespace Eddie\TencentIm\Message\Entities;
 
 class Face extends Base
 {

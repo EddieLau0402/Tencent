@@ -6,10 +6,10 @@
  * Time: 上午10:38
  */
 
-namespace JkTech\TencentIm\Tests;
+namespace Eddie\TencentIm\Tests;
 
-use JkTech\TencentIm\Im;
-use JkTech\TencentIm\Message\Bag;
+use Eddie\TencentIm\Im;
+use Eddie\TencentIm\Message\Bag;
 
 class TencentImSendMessageTest extends TestCase
 {

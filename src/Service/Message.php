@@ -1,6 +1,6 @@
 <?php
 
-namespace JkTech\TencentIm\Service;
+namespace Eddie\TencentIm\Service;
 
 use JkTech\TencentIm\Message\Bag;
 use JkTech\TencentIm\Util;

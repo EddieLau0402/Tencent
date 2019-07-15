@@ -1,6 +1,6 @@
 <?php
 
-namespace JkTech\TencentIm\Provider;
+namespace Eddie\TencentIm\Provider;
 
 use JkTech\TencentIm\Im;
 use Illuminate\Support\ServiceProvider;
