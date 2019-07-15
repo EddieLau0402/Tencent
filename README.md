@@ -12,7 +12,7 @@
 + 命令行执行
 
 ```shell
-$ composer require jk-tech/tencent-im
+$ composer require eddie/tencent
 ```
 
 若安装出现
@@ -26,7 +26,7 @@ Could not find a version of package eddie/tencent matching your minimum-stabilit
 ```json
 {
   "require": {
-    "jk-tech/tencent-im": "dev-master"
+    "eddie/tencent": "dev-master"
   }
 }
 ```
@@ -35,7 +35,7 @@ Could not find a version of package eddie/tencent matching your minimum-stabilit
 "repositories": {
     "tencent-im": {
         "type": "vcs",
-        "url": "https://tech%40jkweixin.net:tech%40jkweixin.net@github.com/techjkweixin/TencentIm.git"
+        "url": "https://github.com/EddieLau0402/Tencent.git"
     }
 },
 ```
@@ -52,7 +52,7 @@ Could not find a version of package eddie/tencent matching your minimum-stabilit
         'providers' => [
             ...
             
-            JkTech\TencentIm\Provider\ImServiceProvider::class,
+            \Eddie\TencentIm\Provider\ImServiceProvider::class,
             
             ...
         ]
@@ -60,7 +60,7 @@ Could not find a version of package eddie/tencent matching your minimum-stabilit
         'aliases' => [
             ...
             
-            'TencentIm' => JkTech\TencentIm\Provider\ImServiceProvider::class,
+            'TencentIm' => \Eddie\TencentIm\Provider\ImServiceProvider::class,
             
             ...
         ]
@@ -69,7 +69,7 @@ Could not find a version of package eddie/tencent matching your minimum-stabilit
     - Lumen
         * 在 `bootstrap/app.php` 中添加
         ```php
-        $app->register(\JkTech\TencentIm\Provider\ImServiceProvider::class);
+        $app->register(\Eddie\TencentIm\Provider\ImServiceProvider::class);
         ```
 
 
@@ -79,7 +79,7 @@ Could not find a version of package eddie/tencent matching your minimum-stabilit
 + 用发布命令将包配置复制到本地配置
 
 ```shell
-$ php artisan vendor:publish --provider="JkTech\TencentIm\Im\ImServiceProvider"
+$ php artisan vendor:publish --provider="Eddie\TencentIm\Im\ImServiceProvider"
 ```
 
 + 配置内容可以在`.env`中配置
