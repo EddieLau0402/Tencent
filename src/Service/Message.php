@@ -88,6 +88,7 @@ class Message extends AbstractService
 
         try {
             $result = Util::postRequest($url, $data);
+            $this->flush(); // clean
             return json_decode($result, true);
         } catch (\Exception $e) {
             return self::makeFailResponse($e->getMessage());
@@ -138,6 +139,7 @@ class Message extends AbstractService
 
         try {
             $result = Util::postRequest($url, $data);
+            $this->flush();
             return json_decode($result, true);
         } catch (\Exception $e) {
             return self::makeFailResponse($e->getMessage());
